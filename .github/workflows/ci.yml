@@ -20,4 +20,4 @@ jobs: # This is where we define the jobs (like a series of steps that run in a s
           go-version: "1.26.0" # This tells the Go setup action which version to install.
       
       - name: Run tests
-        run: go test ./...
+        run: go test ./... -cover # This step runs the tests. The command go test ./... runs all tests in the current directory and its subdirectories. The flags -cover used to generate a coverage report.
