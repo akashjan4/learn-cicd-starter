@@ -21,3 +21,19 @@ jobs: # This is where we define the jobs (like a series of steps that run in a s
       
       - name: Run tests
         run: go test ./... -cover # This step runs the tests. The command go test ./... runs all tests in the current directory and its subdirectories. The flags -cover used to generate a coverage report.
+  
+  fmt:
+    name: Check code style
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v6
+      
+      - name: Set up Go
+        uses: actions/setup-go@v6
+        with:
+          go-version: "1.26.0"
+      
+      - name: Check code style
+        run: test -z $(go fmt ./...)
