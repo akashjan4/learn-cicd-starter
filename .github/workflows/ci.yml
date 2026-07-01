@@ -1,0 +1,23 @@
+name: ci  # This gives our workflow a name that shows up in the GitHub UI.
+
+on: # This defines when the workflow should run. GitHub Actions watch for events like push requests, schedule changes, etc.
+  pull_request: # This is one of the events listed under on. 
+    branches: [ main ] # It tells GitHub to run this workflow when someone opens a pull request on the "main" branch. This restricts the workflow to only run on pull requests that target the main branch.
+
+jobs: # This is where we define the jobs (like a series of steps that run in a specific order or environment). A workflow is made up of one or more jobs. A job is a set of steps that run on the same runner, which is just a virtual machine that runs your job on GitHub's servers.
+  tests: # This is the id of a job. GitHub gives each job a unique name, and "tests" is a good, descriptive name for a job that runs tests.
+    name: Tests # This is the display name for the job. It’s what appears in the GitHub Actions tab. It doesn’t affect the workflow logic.
+    runs-on: ubuntu-latest # This tells the job to run on an Ubuntu machine (ubuntu-latest is the newest version). 
+      # We can use windows-latest, macos-latest, or a self-hosted runner if needed.
+
+    steps: # A job is made up of steps. Think of a step as a single command or action that gets executed.
+      - name: Check out code # This is the name of a step. It makes the step easier to identify in logs.
+        uses: actions/checkout@v6 # This step runs an action called checkout. The part after actions/ is the action’s owner and name (checkout by GitHub). The @v6 is the version.
+      
+      - name: Set up Go # Another step name. This step will run the Go version setup.
+        uses: actions/setup-go@v6 # This step runs the setup-go action, which downloads and installs Go.
+        with: # This section provides input parameters for the action that is about to be run (actions/setup-go).
+          go-version: "1.26.0" # This tells the Go setup action which version to install.
+      
+      - name: Run tests
+        run: go test ./... -cover # This step runs the tests. The command go test ./... runs all tests in the current directory and its subdirectories. The flags -cover used to generate a coverage report.
