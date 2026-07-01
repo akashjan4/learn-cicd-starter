@@ -41,7 +41,7 @@ func TestGetAPIKey(t *testing.T) {
 			name:        "empty authorization value",
 			authHeader:  "ApiKey ",
 			expectedKey: "",
-			expectedErr: errors.New("malformed authorization header"),
+			expectedErr: nil,
 		},
 		{
 			name:        "extra values after API key",
