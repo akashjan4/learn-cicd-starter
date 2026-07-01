@@ -4,7 +4,7 @@ on: # This defines when the workflow should run. GitHub Actions watch for events
   pull_request: # This is one of the events listed under on. 
     branches: [ main ] # It tells GitHub to run this workflow when someone opens a pull request on the "main" branch. This restricts the workflow to only run on pull requests that target the main branch.
 
-jobs: # This is where we define the jobs (like a series of steps that run in a specific order or environment).
+jobs: # This is where we define the jobs (like a series of steps that run in a specific order or environment). A workflow is made up of one or more jobs. A job is a set of steps that run on the same runner, which is just a virtual machine that runs your job on GitHub's servers.
   tests: # This is the id of a job. GitHub gives each job a unique name, and "tests" is a good, descriptive name for a job that runs tests.
     name: Tests # This is the display name for the job. It’s what appears in the GitHub Actions tab. It doesn’t affect the workflow logic.
     runs-on: ubuntu-latest # This tells the job to run on an Ubuntu machine (ubuntu-latest is the newest version). 
@@ -19,5 +19,5 @@ jobs: # This is where we define the jobs (like a series of steps that run in a s
         with: # This section provides input parameters for the action that is about to be run (actions/setup-go).
           go-version: "1.26.0" # This tells the Go setup action which version to install.
       
-      - name: Force Failure
-        run: (exit 1)
+      - name: Print version
+        run: echo "$(go version)"
