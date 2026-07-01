@@ -19,5 +19,5 @@ jobs: # This is where we define the jobs (like a series of steps that run in a s
         with: # This section provides input parameters for the action that is about to be run (actions/setup-go).
           go-version: "1.26.0" # This tells the Go setup action which version to install.
       
-      - name: Print version
-        run: echo "$(go version)"
+      - name: Run tests
+        run: go test ./...
