@@ -21,3 +21,32 @@ jobs: # This is where we define the jobs (like a series of steps that run in a s
       
       - name: Run tests
         run: go test ./... -cover # This step runs the tests. The command go test ./... runs all tests in the current directory and its subdirectories. The flags -cover used to generate a coverage report.
+
+      - name: Install gosec
+        run: go install github.com/securego/gosec/v2/cmd/gosec@latest
+      
+      - name: Run gosec
+        run: gosec ./...
+
+  fmt:
+    name: Style
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v6
+      
+      - name: Set up Go
+        uses: actions/setup-go@v6
+        with:
+          go-version: "1.26.0"
+      
+      - name: Install staticcheck
+        run: go install honnef.co/go/tools/cmd/staticcheck@latest
+      
+      - name: Check code style
+        run: test -z $(go fmt ./...)
+      
+      - name: Run staticcheck
+        run: staticcheck ./...
+  
