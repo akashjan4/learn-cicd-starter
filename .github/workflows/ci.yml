@@ -24,6 +24,9 @@ jobs: # This is where we define the jobs (like a series of steps that run in a s
 
       - name: Install gosec
         run: go install github.com/securego/gosec/v2/cmd/gosec@latest
+      
+      - name: Run gosec
+        run: gosec ./...
 
   fmt:
     name: Style
